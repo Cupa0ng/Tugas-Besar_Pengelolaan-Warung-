@@ -47,7 +47,7 @@ Rencana: Tahap 1 = 30%, Tahap 2 = 60%, Tahap 3 = 100%.
 | [ ] | Cek isi rak |
 | [ ] | Pembaruan `totalStok` otomatis |
 | [ ] | Cek kapasitas maksimal lokasi |
-| [ ] | Validasi dan perbandingan tanggal (`tanggal.h/.cpp`) |
+| [x] | Validasi dan perbandingan tanggal (`tanggal.h/.cpp`) |
 
 ## 4. Laporan, Tahap 3
 
@@ -98,7 +98,7 @@ Rencana: Tahap 1 = 30%, Tahap 2 = 60%, Tahap 3 = 100%.
 | [x] | `barang.h`, `barang.cpp` | 1 |
 | [x] | `lokasi.h`, `lokasi.cpp` | 1 |
 | [x] | `main.cpp` (menu Barang dan Lokasi) | 1, diperluas di 2 dan 3 |
-| [ ] | `tanggal.h`, `tanggal.cpp` | 2 |
+| [x] | `tanggal.h`, `tanggal.cpp` | 2 |
 | [ ] | `relasi.h`, `relasi.cpp` | 2 |
 | [ ] | `antrean.h`, `antrean.cpp` | 3 |
 | [ ] | `laporan.h`, `laporan.cpp` (opsional) | 3 |
@@ -111,7 +111,7 @@ Rencana: Tahap 1 = 30%, Tahap 2 = 60%, Tahap 3 = 100%.
 |---|---|---|
 | Barang (BST) | 10 | 11 |
 | Lokasi (SLL) | 4 | 6 |
-| Alokasi (MLL-02) | 0 | 10 |
+| Alokasi (MLL-02) | 1 | 10 |
 | Laporan | 0 | 3 |
 | Antrean (Queue) | 0 | 5 |
 

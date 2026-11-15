@@ -2,8 +2,9 @@
 #include <string>
 #include "barang.h"
 #include "lokasi.h"
+#include "tanggal.h"
 using namespace std;
- 
+
 int bacaIntMin(string label, int batas) {
     int x = 0;
     bool valid = false;
@@ -32,7 +33,7 @@ int bacaIntMin(string label, int batas) {
 int bacaInt(string label) {
     return bacaIntMin(label, 0);
 }
- 
+
 string bacaString(string label) {
     string s = "";
     while (s == "" && !cin.eof()) {
@@ -57,7 +58,7 @@ Barang bacaDataBarang(int id) {
     b.totalStok = 0;
     return b;
 }
- 
+
 void menuBarang(adrBarang &root) {
     int pilih = -1;
     while (pilih != 0) {
@@ -124,7 +125,7 @@ void menuBarang(adrBarang &root) {
         }
     }
 }
- 
+
 void menuLokasi(ListLokasi &L) {
     int pilih = -1;
     while (pilih != 0) {
@@ -169,7 +170,7 @@ void menuLokasi(ListLokasi &L) {
         }
     }
 }
- 
+
 void isiBarang(adrBarang &root, int id, string nama, string kat, string sat,
                int beli, int jual, int minimum) {
     Barang b;
@@ -201,6 +202,44 @@ void muatDataContoh(adrBarang &root, ListLokasi &L) {
     }
 }
 
+// Tambahkan di bawah muatDataContoh() di main.cpp:
+Tanggal bacaTanggal(string judul) {
+    Tanggal t;
+    bool valid = false;
+    cout << judul << endl;
+    while (!valid) {
+        t.hari = bacaIntMin("  Hari (1-31) : ", 1);
+        t.bulan = bacaIntMin("  Bulan (1-12): ", 1);
+        t.tahun = bacaIntMin("  Tahun       : ", 2000);
+        if (isTanggalValid(t)) {
+            valid = true;
+        } else {
+            cout << "Tanggal tidak valid di kalender! Ulangi.\n";
+        }
+    }
+    return t;
+}
+
+void menuCekTanggal() {
+    cout << "\n=== SIMULASI VALIDASI & BANDING TANGGAL ===\n";
+    Tanggal t1 = bacaTanggal("Masukkan Tanggal Kedaluwarsa Batch 1:");
+    Tanggal t2 = bacaTanggal("Masukkan Tanggal Kedaluwarsa Batch 2:");
+
+    int hasil = bandingTanggal(t1, t2);
+    cout << "\nHasil: ";
+    tampilTanggal(t1);
+    if (hasil < 0) {
+        cout << " lebih cepat kedaluwarsa dari ";
+    } else if (hasil > 0) {
+        cout << " lebih lama kedaluwarsa dari ";
+    } else {
+        cout << " sama tanggal kedaluwarsanya dengan ";
+    }
+    tampilTanggal(t2);
+    cout << endl;
+}
+
+
 int main() {
     adrBarang root;
     ListLokasi lokasi;
@@ -209,10 +248,11 @@ int main() {
 
     int pilih = 0;
     do {
-        cout << "\WARUNG\n";
+        cout << "\n=== WARUNG ===\n";
         cout << "1. Menu Barang\n";
         cout << "2. Menu Lokasi\n";
         cout << "3. Muat Data Contoh\n";
+        cout << "4. Cek & Bandingkan Tanggal\n";
         cout << "0. Exit\n";
         pilih = bacaInt("Pilihan: ");
 
@@ -222,6 +262,8 @@ int main() {
             menuLokasi(lokasi);
         } else if (pilih == 3) {
             muatDataContoh(root, lokasi);
+        } else if (pilih == 4) {
+            menuCekTanggal();
         } else if (pilih != 0) {
             cout << "Pilihan tidak valid.\n";
         }
