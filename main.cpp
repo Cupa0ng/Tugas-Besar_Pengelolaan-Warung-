@@ -209,10 +209,9 @@ int main() {
 
     int pilih = 0;
     do {
-        cout << "\WARUNG\n";
+        cout << "\n=== APLIKASI WARUNG ===\n";
         cout << "1. Menu Barang\n";
         cout << "2. Menu Lokasi\n";
-        cout << "3. Muat Data Contoh\n";
         cout << "0. Exit\n";
         pilih = bacaInt("Pilihan: ");
 
@@ -220,10 +219,8 @@ int main() {
             menuBarang(root);
         } else if (pilih == 2) {
             menuLokasi(lokasi);
-        } else if (pilih == 3) {
-            muatDataContoh(root, lokasi);
         } else if (pilih != 0) {
-            cout << "Pilihan tidak valid.\n";
+            cout << "Pilihan tidak ada.\n";
         }
     } while (pilih != 0);
 
