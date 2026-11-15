@@ -48,47 +48,66 @@ void cariBarangByNama(adrBarang root, string kata, int &jumlah) {
     }
 }
 
-void ubahBarang(adrBarang p, Barang baru) {
-    p->info = baru; // Langsung assign struct biar ringkas ala mahasiswa
+void ubahBarang(adrBarang p, Barang baru) { 
+    p->info.namaBarang  = baru.namaBarang;
+    p->info.kategori    = baru.kategori;
+    p->info.satuan      = baru.satuan;
+    p->info.hargaBeli   = baru.hargaBeli;
+    p->info.hargaJual   = baru.hargaJual;
+    p->info.stokMinimum = baru.stokMinimum;
 }
-
-adrBarang findMin(adrBarang root) {
-    while (root->left != NULL) {
-        root = root->left;
+ 
+static adrBarang lepasMinimum(adrBarang &root) {
+    adrBarang m;
+    if (root->left == NULL) {
+        m = root;
+        root = root->right;
+        m->left = NULL;
+        m->right = NULL;
+    } else {
+        m = lepasMinimum(root->left);
     }
-    return root;
+    return m;
 }
 
 void deleteBarang(adrBarang &root, int id, bool &berhasil) {
     if (root == NULL) {
         berhasil = false;
-        return;
-    }
-    
-    if (id < root->info.idBarang) {
+    } else if (id < root->info.idBarang) {
         deleteBarang(root->left, id, berhasil);
     } else if (id > root->info.idBarang) {
         deleteBarang(root->right, id, berhasil);
     } else {
-        berhasil = true;
-        adrb: adrBarang temp = root;
-        if (root->left == NULL) {
-            root = root->right;
-            delete temp;
-        } else if (root->right == NULL) {
-            root = root->left;
-            delete temp;
+        adrBarang hapus = root;
+        if (hapus->left == NULL) {
+            root = hapus->right;
+        } else if (hapus->right == NULL) {
+            root = hapus->left;
         } else {
-            adrBarang successor = findMin(root->right);
-            root->info = successor->info;
-            deleteBarang(root->right, successor->info.idBarang, berhasil);
+            adrBarang pengganti = lepasMinimum(hapus->right);
+            pengganti->left = hapus->left;
+            pengganti->right = hapus->right;
+            root = pengganti;
         }
+        delete hapus;
+        berhasil = true;
     }
 }
 
 void tampilBarang(adrBarang p) {
-    cout << p->info.idBarang << " - " << p->info.namaBarang 
+    cout << p->info.idBarang << " - " << p->info.namaBarang
          << " | Stok: " << p->info.totalStok << endl;
+}
+
+void tampilDetailBarang(adrBarang p) {
+    cout << "ID           : " << p->info.idBarang << endl;
+    cout << "Nama         : " << p->info.namaBarang << endl;
+    cout << "Kategori     : " << p->info.kategori << endl;
+    cout << "Satuan       : " << p->info.satuan << endl;
+    cout << "Harga beli   : " << p->info.hargaBeli << endl;
+    cout << "Harga jual   : " << p->info.hargaJual << endl;
+    cout << "Stok minimum : " << p->info.stokMinimum << endl;
+    cout << "Total stok   : " << p->info.totalStok << endl;
 }
 
 void tampilInorder(adrBarang root) {
@@ -122,7 +141,7 @@ int hitungNode(adrBarang root) {
 
 int tinggiPohon(adrBarang root) {
     if (root == NULL) return 0;
-    int k, l = tinggiPohon(root->left);
+    int l = tinggiPohon(root->left);
     int r = tinggiPohon(root->right);
     return 1 + (l > r ? l : r);
 }

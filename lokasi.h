@@ -3,7 +3,7 @@
 
 #include <string>
 using namespace std;
- 
+
 struct Lokasi {
     string kodeLokasi, jenisLokasi;
     int kapasitasMaksimal;
@@ -18,7 +18,7 @@ struct ElmLokasi {
 struct ListLokasi {
     adrLokasi first;
 };
- 
+
 void createListLokasi(ListLokasi &L);
 adrLokasi alokasiLokasi(Lokasi x);
 void insertFirstLokasi(ListLokasi &L, adrLokasi p);

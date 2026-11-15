@@ -20,13 +20,10 @@ void insertFirstLokasi(ListLokasi &L, adrLokasi p) {
 
 adrLokasi cariLokasi(ListLokasi L, string kode) {
     adrLokasi p = L.first;
-    while (p != NULL) {
-        if (p->info.kodeLokasi == kode) {
-            return p;
-        }
+    while (p != NULL && p->info.kodeLokasi != kode) {
         p = p->next;
     }
-    return NULL;
+    return p;
 }
 
 void ubahLokasi(adrLokasi p, string jenisBaru, int kapasitasBaru) {
@@ -36,24 +33,24 @@ void ubahLokasi(adrLokasi p, string jenisBaru, int kapasitasBaru) {
 
 void deleteLokasi(ListLokasi &L, string kode, bool &berhasil) {
     berhasil = false;
-    if (L.first == NULL) return;
-
-    adrLokasi p = L.first;
-    if (p->info.kodeLokasi == kode) {
-        L.first = p->next;
-        delete p;
-        berhasil = true;
-    } else {
-        adrLokasi prev = p;
-        p = p->next;
-        while (p != NULL && !berhasil) {
-            if (p->info.kodeLokasi == kode) {
-                prev->next = p->next;
-                delete p;
-                berhasil = true;
-            } else {
-                prev = p;
-                p = p->next;
+    if (L.first != NULL) {
+        adrLokasi p = L.first;
+        if (p->info.kodeLokasi == kode) {
+            L.first = p->next;
+            delete p;
+            berhasil = true;
+        } else {
+            adrLokasi prev = p;
+            p = p->next;
+            while (p != NULL && !berhasil) {
+                if (p->info.kodeLokasi == kode) {
+                    prev->next = p->next;
+                    delete p;
+                    berhasil = true;
+                } else {
+                    prev = p;
+                    p = p->next;
+                }
             }
         }
     }
@@ -65,7 +62,7 @@ void tampilLokasi(ListLokasi L) {
         cout << "Kosong\n";
     } else {
         while (p != NULL) {
-            cout << p->info.kodeLokasi << " - " << p->info.jenisLokasi 
+            cout << p->info.kodeLokasi << " - " << p->info.jenisLokasi
                  << " (" << p->info.kapasitasMaksimal << ")\n";
             p = p->next;
         }
