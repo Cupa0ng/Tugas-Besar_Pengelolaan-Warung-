@@ -209,7 +209,7 @@ int main() {
 
     int pilih = 0;
     do {
-        cout << "\n=== APLIKASI WARUNG ===\n";
+        cout << "\WARUNG\n";
         cout << "1. Menu Barang\n";
         cout << "2. Menu Lokasi\n";
         cout << "3. Muat Data Contoh\n";
